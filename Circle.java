@@ -1,56 +1,48 @@
 package test;
-
-/**
- * Created by лол on 21.06.2017.
- */
-public class Circle {
-
-int centerX;
-int centerY;
-int radius;
-int width;
-int color;
-        public Circle(int centerX, int centerY, int radius)
-        {
-            this.centerX=centerX;
-            this.centerY=centerY;
-            this.radius=radius;
-        }
-    public Circle(int centerX, int centerY, int radius, int width)
-    {
-        this.centerX=centerX;
-        this.centerY=centerY;
-        this.radius=radius;
-        this.width=width;
-    }
-    public Circle(int centerX, int centerY, int radius, int width,int color)
-    {
-        this.centerX=centerX;
-        this.centerY=centerY;
-        this.radius=radius;
-        this.width=width;
-        this.color=color;
-    }
-
-
-
-
-
-    public static void main(String[] args) {
-
-    }
-}
-
 /*
-Создать класс (Circle) круг, с тремя конструкторами:
-— centerX, centerY, radius
-— centerX, centerY, radius, width
-— centerX, centerY, radius, width, color
+Вызов конструктора из конструктора
+Разберись, что делает программа.
+Исправь конструктор с двумя параметрами так, чтобы он вызывал другой конструктор с радиусом 10.
+Подумай, какой конструктор нужно вызвать.
+Подсказка:
+внимательно изучи реализацию конструктора по умолчанию.
 
 
 Требования:
-1. У класса Circle должны быть переменные centerX, centerY, radius, width и color с типом int.
-2. У класса должен быть конструктор, принимающий в качестве параметров centerX, centerY, radius и инициализирующий соответствующие переменные класса.
-3. У класса должен быть конструктор, принимающий в качестве параметров centerX, centerY, radius, width и инициализирующий соответствующие переменные класса.
-4. У класса должен быть конструктор, принимающий в качестве параметров centerX, centerY, radius, width, color и инициализирующий соответствующие переменные класса.
-*/
+1. У класса должно быть 3 конструктора.
+2. Конструктор с двумя параметрами должен инициализировать переменные x и y переданными значениями.
+3. Конструктор с двумя параметрами должен инициализировать переменную radius значением 10.
+4. Конструктор с двумя параметрами должен должен вызывать другой конструктор, передав в него верные значения параметров.
+5. Метод main не изменять.
+6. Конструктор по умолчанию не изменять.
+ */
+public class Circle {
+
+    public double x;
+    public double y;
+    public double radius;
+
+    public Circle(double x, double y, double radius) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+    }
+
+    public Circle(double x, double y) {
+      this(x,y,10);
+
+    }
+
+    public Circle() {
+        this(5, 5, 1);
+    }
+
+    public static void main(String[] args) {
+        Circle circle = new Circle();
+        System.out.println(circle.x + " " + circle.y + " " + circle.radius);
+        Circle anotherCircle = new Circle(10, 5);
+        System.out.println(anotherCircle.x + " " + anotherCircle.y + " " + anotherCircle.radius);
+    }
+}
+
+
