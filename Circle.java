@@ -1,4 +1,3 @@
-package test;
 /*
 Изучи класс Circle. Напиши максимальное количество конструкторов с разными аргументами.
 
@@ -27,18 +26,19 @@ public class Circle {
     }
 
     public Circle(double x, double y) {
-      this(x,y,10);
+        this(x, y, 10);
 
     }
-      public Circle(Circle AnotherCircle)
-      {
-          this.x = AnotherCircle.x;
-          this.y = AnotherCircle.y;
-          this.radius = AnotherCircle.radius;
 
-      }
+    public Circle(Circle AnotherCircle) {
+        this.x = AnotherCircle.x;
+        this.y = AnotherCircle.y;
+        this.radius = AnotherCircle.radius;
 
-    public Circle() {}
+    }
+
+    public Circle() {
+    }
 
 
     public static void main(String[] args) {

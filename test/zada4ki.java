@@ -11,28 +11,26 @@ package test;
 
 
 import java.util.Date;
-import java.util.Random;
 
 public class zada4ki {
 
- zada4ki(String j) {
-     System.out.println("Zada4ki " + j + " ");
- }
-
+    zada4ki(String j) {
+        System.out.println("Zada4ki " + j + " ");
+    }
 
 
     public static void main(String[] args) {
 
 
-        System.out.println(new Date() );
+        System.out.println(new Date());
 
-  //      for (int i = 0; i <100 ; i++) {
-     //       if (i==99) break;
-    //        else System.out.println(i);
-        }
+        //      for (int i = 0; i <100 ; i++) {
+        //       if (i==99) break;
+        //        else System.out.println(i);
+    }
 
-        // for (int i = 1; i <= 100; i++) {
-        //   System.out.println(i);
+    // for (int i = 1; i <= 100; i++) {
+    //   System.out.println(i);
 
 
 

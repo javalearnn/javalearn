@@ -24,8 +24,8 @@ public class Person {
         this.name = name;
         this.money = money;
         this.sex = sex;
-        this.weight=weight;
-        this.size=size;
+        this.weight = weight;
+        this.size = size;
     }
 
     public static void main(String[] args) {
