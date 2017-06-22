@@ -25,7 +25,14 @@ public class ConsoleReader {
 
     public static boolean readBoolean() throws Exception {
         Scanner sc = new Scanner(System.in);
-        return sc.nextBoolean();
+        if (sc.nextLine().equalsIgnoreCase("true")) {
+            return true;
+        } else if (sc.nextLine().equalsIgnoreCase("false")) {
+            return false;
+        }
+        return false;
+        //Либо просто вот так
+        //return sc.nextLine().equalsIgnoreCase("true");
     }
 
 
