@@ -29,3 +29,4 @@ public class Util {
 3. Метод getDistance должен быть public.
 4. Метод getDistance должен возвращать расстояние между точками.
 5. Метод getDistance должен использовать метод double Math.sqrt(double a).
+123
