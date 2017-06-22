@@ -6,11 +6,7 @@ package com.javarush.task.task06.task0609;
 import static java.lang.Math.sqrt;
 public class Util {
     public static double getDistance(int x1, int y1, int x2, int y2) {
-      double a = x1+x2+x3+x4;
-      double Math.sqrt(double a){
-      
-      Math.sqrt(a);
-      return(a);
+        return Math.sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
        }
         
     }
