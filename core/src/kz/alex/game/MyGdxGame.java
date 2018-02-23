@@ -83,6 +83,7 @@ public class MyGdxGame extends ApplicationAdapter {
             }
         }
         //test message yf; нажимаешь контр + К англицкий
+        // Вот ТАК ТЕПЕРЬ И КОММИТЬ И ЗАБИРАЙ ОБНОВЛЕНИЯ
 
     }
 
