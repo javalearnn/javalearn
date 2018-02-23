@@ -84,6 +84,10 @@ public class MyGdxGame extends ApplicationAdapter {
                             asteroids[j].recreate();
                             bullets[i].deactivate();
                         }
+			      if (asteroids[j].hitBox.overlaps(hero.HitBox))
+                    {
+                        music.pause();
+                    }
                     }
                 }
 
