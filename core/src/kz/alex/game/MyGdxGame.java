@@ -18,8 +18,7 @@ public class MyGdxGame extends ApplicationAdapter {
     private Asteroid[] asteroids;
     private Texture textureBullet;
     private Music music;
-    private  boolean gameover;
-    private BitmapFont font;
+    public BitmapFont font;
 
 
     static Bullet[] bullets;
@@ -31,6 +30,8 @@ public class MyGdxGame extends ApplicationAdapter {
         hero = new Hero();
         asteroids = new Asteroid[20];
         font = new BitmapFont();
+
+
 
         for (int i = 0; i < asteroids.length; i++) {
             asteroids[i] = new Asteroid();
@@ -44,22 +45,33 @@ public class MyGdxGame extends ApplicationAdapter {
 
         music = Gdx.audio.newMusic(Gdx.files.internal("GameMusic.mp3"));
         music.setLooping(true);
-        music.play();
+        //music.play();
         music.setVolume(0.1f);
-        music.setLooping(true);
-        gameover = false;
+
+
 
     }
 
 
     public void render() {
-        if (!gameover) {
+         {
             update();
             Gdx.gl.glClearColor(1, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+             batch.enableBlending();
             batch.begin();
             background.render(batch);
             hero.render(batch);
+            hero.renderHUD(batch, font, 40, 680);
+
+             if(hero.alive())
+             {   font.draw(batch, "WASD - Move, SPACE - Fire", 500, 20);
+                 font.draw(batch, "HP: " + hero.getHp() , 220,640);
+             }
+             else
+             {
+
+             }
             for (Asteroid asteroid : asteroids) {
                 asteroid.render(batch);
 
@@ -69,7 +81,7 @@ public class MyGdxGame extends ApplicationAdapter {
                     batch.draw(textureBullet, bullet.position.x - 32, bullet.position.y - 16);
                 }
             }
-        } else
+        }
 
             batch.end();
 
@@ -79,10 +91,10 @@ public class MyGdxGame extends ApplicationAdapter {
         hero.update();
         background.update();
          for (Asteroid asteroid : asteroids)
-        if (asteroid.hitBox.overlaps(hero.hitBox)) {
-             gameover = true;
-             music.pause();
-             break;
+         if (asteroid.hitBox.overlaps(hero.hitBox)) {
+             hero.takeDamage(1);
+             asteroid.recreate();
+
 
 
         }
@@ -95,6 +107,7 @@ public class MyGdxGame extends ApplicationAdapter {
                 bullet.update();
                 for (Asteroid asteroid : asteroids) {
                     if (asteroid.hitBox.contains(bullet.position)) {
+                        hero.addScore(10);
                         asteroid.recreate();
                         bullet.deactivate();
                     }
