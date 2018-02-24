@@ -3,9 +3,12 @@ package kz.alex.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 
 public class MyGdxGame extends ApplicationAdapter {
 
@@ -15,14 +18,19 @@ public class MyGdxGame extends ApplicationAdapter {
     private Asteroid[] asteroids;
     private Texture textureBullet;
     private Music music;
+    private  boolean gameover;
+    private BitmapFont font;
+
 
     static Bullet[] bullets;
 
     public void create() {
         batch = new SpriteBatch();
         background = new Background();
+
         hero = new Hero();
         asteroids = new Asteroid[20];
+        font = new BitmapFont();
 
         for (int i = 0; i < asteroids.length; i++) {
             asteroids[i] = new Asteroid();
@@ -39,31 +47,45 @@ public class MyGdxGame extends ApplicationAdapter {
         music.play();
         music.setVolume(0.1f);
         music.setLooping(true);
+        gameover = false;
+
     }
 
 
     public void render() {
-        update();
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        background.render(batch);
-        hero.render(batch);
-        for (Asteroid asteroid : asteroids) {
-            asteroid.render(batch);
+        if (!gameover) {
+            update();
+            Gdx.gl.glClearColor(1, 0, 0, 1);
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            batch.begin();
+            background.render(batch);
+            hero.render(batch);
+            for (Asteroid asteroid : asteroids) {
+                asteroid.render(batch);
 
-        }
-        for (Bullet bullet : bullets) {
-            if (bullet.active) {
-                batch.draw(textureBullet, bullet.position.x - 32, bullet.position.y - 16);
             }
-        }
-        batch.end();
+            for (Bullet bullet : bullets) {
+                if (bullet.active) {
+                    batch.draw(textureBullet, bullet.position.x - 32, bullet.position.y - 16);
+                }
+            }
+        } else
+
+            batch.end();
+
     }
 
     private void update() {
         hero.update();
         background.update();
+         for (Asteroid asteroid : asteroids)
+        if (asteroid.hitBox.overlaps(hero.hitBox)) {
+             gameover = true;
+             music.pause();
+             break;
+
+
+        }
         for (Asteroid asteroid : asteroids) {
             asteroid.update();
         }
@@ -76,9 +98,7 @@ public class MyGdxGame extends ApplicationAdapter {
                         asteroid.recreate();
                         bullet.deactivate();
                     }
-                    if (asteroid.hitBox.overlaps(hero.hitBox)) {
-                        music.pause();
-                    }
+
                 }
             }
         }

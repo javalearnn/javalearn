@@ -29,6 +29,7 @@ public class Background {
     private Texture textureStar;
     private Star[] stars;
 
+
     Background() {
         texture = new Texture("background.jpg");
         textureStar = new Texture("star12.tga");

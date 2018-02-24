@@ -15,6 +15,7 @@ public class Hero {
     private int fireCounter;
     private int fireRate;
     Rectangle hitBox;
+    private int HeroHP;
 
     public Hero() {
         position = new Vector2(100, 328);
@@ -23,6 +24,7 @@ public class Hero {
         fireCounter = 0;
         fireRate = 8;
         hitBox = new Rectangle(position.x, position.y, 120, 84);
+        HeroHP = 100;
     }
 
     public void render(SpriteBatch batch) {
@@ -30,6 +32,8 @@ public class Hero {
     }
 
     public void update() {
+
+
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             position.x -= speed;
         }
