@@ -10,6 +10,6 @@ public class DesktopLauncher {
         new LwjglApplication(new MyGdxGame(), config);
         config.width = 1280;
         config.height = 720;
-        config.title = "Володя галакси";
+        config.title = "GALAXY BATTLE";
     }
 }

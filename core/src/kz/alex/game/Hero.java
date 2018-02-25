@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,28 +18,39 @@ public class Hero {
     private int fireCounter;
     private int fireRate;
     Rectangle hitBox;
+    Rectangle rectangle;
     private int hp, Maxhp;
-    private int score;
+    public int score;
     public boolean alive()
     {return hp > 0;}
     public int getHp(){ return hp; }
+    private int keyUp,keyDown,keyRight,keyLeft,keyFire;
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
 
     public int getScore() {
         return score;
     }
     public void addScore(int n) { score +=n;}
 
-    public Hero() {
+    public Hero(int keyUp, int keyDown, int keyLeft,int keyRight,int keyFire) {
 
-        position = new Vector2(100, 328);
-        texture = new Texture("Ship.png");
-        textureHpBar = new Texture("hpBar.png");
-        speed = 10.0f;
-        fireCounter = 0;
-        fireRate = 8;
-        hitBox = new Rectangle(position.x, position.y, 120, 84);
-        Maxhp = 10;
-        hp = Maxhp;
+        this.position = new Vector2(100, 328);
+        this.texture = new Texture("ship64x74.png");
+        this.rectangle= new Rectangle(position.x, position.y, 64, 74);
+        this.textureHpBar = new Texture("hpBar.png");
+        this.speed = 10.0f;
+
+        this.Maxhp = 10;
+        this.hp = Maxhp;
+        this.keyLeft = keyLeft;
+        this.keyRight = keyRight;
+        this.keyUp = keyUp;
+        this.keyDown = keyDown;
+        this.keyFire = keyFire;
+        this.fireRate = 8;
 
     }
     public void takeDamage(int dmg)
@@ -60,62 +72,38 @@ public class Hero {
     }
 
     public void update() {
-
-    if(alive())
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            position.x -= speed;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            position.x += speed;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            position.y -= speed;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            position.y += speed;
-        }
-        if (Gdx.input.isTouched()) {
-            if (Gdx.input.getX() < position.x + 32) {
-                position.x -= speed;
-            }
-            if (Gdx.input.getX() > position.x + 32) {
-                position.x += speed;
-            }
-            if (720 - Gdx.input.getY() < position.y + 32) {
-                position.y -= speed;
-            }
-            if (720 - Gdx.input.getY() > position.y + 32) {
-                position.y += speed;
-            }
+        if(alive())
+        if (Gdx.input.isKeyPressed(keyUp))position.y += speed;
+        if (Gdx.input.isKeyPressed(keyDown))position.y -= speed;
+        if (Gdx.input.isKeyPressed(keyLeft))position.x -= speed;
+        if (Gdx.input.isKeyPressed(keyRight))position.x += speed;
+        if (position.x < 0) position.x = 0;
+        if (position.x > 1230) position.x = 1230;
+        if (position.y < 0) position.y = 720;
+        if (position.y > 720) position.y = 0;
+        else if (!alive())
+        {
+            position.x =100;
+            position.y = 328;
 
         }
-        if (position.x < 0) {
-            position.x = 0;
-        }
-        if (position.x > 1230) {
-            position.x = 1230;
-        }
-        if (position.y < 0) {
-            position.y = 720;
-        }
-        if (position.y > 720) {
-            position.y = 0;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+
+
+        if (Gdx.input.isKeyPressed(keyFire)) {
             fireCounter++;
-            if (fireCounter >= 8) {
+            if (fireCounter >= fireRate) {
                 fireCounter = 0;
                 fire();
             }
         }
-        hitBox.setPosition(position);
+        rectangle.setPosition(position);
 
     }
 
     private void fire() {
         for (int i = 0; i < MyGdxGame.bullets.length; i++) {
             if (!MyGdxGame.bullets[i].active) {
-                MyGdxGame.bullets[i].activate(position.x + 48, position.y + 32);
+                MyGdxGame.bullets[i].activate(position.x +65, position.y + 34);
                 break;
             }
         }
