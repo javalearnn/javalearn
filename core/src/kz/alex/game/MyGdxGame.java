@@ -4,12 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import javafx.scene.shape.Circle;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 
 public class MyGdxGame extends ApplicationAdapter {
@@ -21,6 +21,12 @@ public class MyGdxGame extends ApplicationAdapter {
     private Texture textureBullet;
     private Music music;
     public BitmapFont font;
+    public  Loot loot;
+    public Vector2 CrushPosition;
+
+
+    int chance;
+
 
 
 
@@ -31,13 +37,18 @@ public class MyGdxGame extends ApplicationAdapter {
         background = new Background();
         hero = new Hero(Input.Keys.W,Input.Keys.S, Input.Keys.A,Input.Keys.D, Input.Keys.SPACE);
         asteroids = new Asteroid[20];
+        loot = new Loot();
         font = new BitmapFont();
         font.setColor(2,0,5,8);
 
 
 
 
+
+
+
         for (int i = 0; i < asteroids.length; i++) {asteroids[i] = new Asteroid();}
+        Loot loot = new Loot();
 
         textureBullet = new Texture("beams32x18.png");
         bullets = new Bullet[200];
@@ -65,6 +76,7 @@ public class MyGdxGame extends ApplicationAdapter {
             batch.begin();
             background.render(batch);
             hero.render(batch);
+            if (loot.isActive())loot.render(batch);
             hero.renderHUD(batch, font, 40, 680);
 
 
@@ -103,6 +115,12 @@ public class MyGdxGame extends ApplicationAdapter {
     private void update() {
         hero.update();
         background.update();
+        if (!loot.isActive())
+            loot.recreate();
+        else
+            loot.update();
+
+
         for (int i = 0; i < asteroids.length; i++) {
             if (!asteroids[i].isActive()){
                 asteroids[i].setup();
@@ -129,20 +147,34 @@ public class MyGdxGame extends ApplicationAdapter {
         for (Bullet bullet : bullets) {
             if (bullet.active) {
                 bullet.update();
-                for (Asteroid asteroid : asteroids) {
-                    if (asteroid.getHitbox().contains(bullet.position)) {
-                        asteroid.TakeDamage(1);
+                for (int i = 0; i < asteroids.length; i++) {
+
+                 {
+                    if (asteroids[i].getHitbox().contains(bullet.position)) {
+                        asteroids[i].TakeDamage(1);
                         bullet.deactivate();
 
-                          if (asteroid.getHp() <=0 )
-                          {
+                          if (asteroids[i].getHp() <=0 ) {
+                              loot.setActive(true);
                               hero.addScore(10);
+                              break;
+
+
+                          }
                           }
                     }
 
                 }
             }
         }
+
+
+            if (hero.getRectangle().overlaps(loot.loothp))
+            {
+                hero.takeHeal(3);
+                loot.disable();
+            }
+
         if (hero.getHp() <= 0)
         {
             for (int i = 0; i <asteroids.length ; i++) {
@@ -150,8 +182,7 @@ public class MyGdxGame extends ApplicationAdapter {
 
             }
         }
-        //test message yf; нажимаешь контр + К англицкий
-        // Вот ТАК ТЕПЕРЬ И КОММИТЬ И ЗАБИРАЙ ОБНОВЛЕНИЯ
+
             if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER))
             {
                 if(hero.getHp() <= 0) StartNewGame();

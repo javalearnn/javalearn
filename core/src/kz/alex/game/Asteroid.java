@@ -9,17 +9,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Asteroid {
-    private Vector2 position;
+    public Vector2 position;
     private Texture texture;
     private float speed;
-
     private int hp;
     private int Maxhp;
     private boolean active;
-
-
     private Rectangle hitbox;
     private float size;
+    Loot loot;
+
+
 
     public boolean isActive() {
         return active;
@@ -37,10 +37,17 @@ public class Asteroid {
         return Maxhp;
     }
 
+
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
     public Asteroid() {
         this.texture = new Texture("Asteroid64x57.png");
         this.position = new Vector2(0,0);
         this.active = false;
+
         hitbox = new Rectangle(position.x,position.y,64,57);
     }
 
@@ -55,10 +62,17 @@ public class Asteroid {
         active = true;
 
         }
-    public void render(SpriteBatch batch) {
-        batch.draw(texture, position.x,position.y);}
 
-        public void disable (){active = false;}
+    public void render(SpriteBatch batch) {
+        batch.draw(texture, position.x,position.y);
+        batch.draw(texture, position.x,position.y);
+    }
+
+        public void disable ()
+
+
+
+        {active = false;}
 
     public boolean TakeDamage(int dmg)
     {

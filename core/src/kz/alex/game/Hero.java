@@ -21,6 +21,7 @@ public class Hero {
     Rectangle rectangle;
     private int hp, Maxhp;
     public int score;
+    private int heal;
     public boolean alive()
     {return hp > 0;}
     public int getHp(){ return hp; }
@@ -52,11 +53,26 @@ public class Hero {
         this.keyFire = keyFire;
         this.fireRate = 8;
 
+
     }
+
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
     public void takeDamage(int dmg)
     {
         hp -=dmg;
 
+    }
+    public void takeHeal(int heal)
+    {
+        hp += heal;
+        if (hp > Maxhp)
+        {
+            hp = Maxhp;
+        }
     }
 
     public void render(SpriteBatch batch)
@@ -108,4 +124,5 @@ public class Hero {
             }
         }
     }
+
 }
