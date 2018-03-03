@@ -38,9 +38,9 @@ public class Hero extends AbstractObject {
 
     public Hero() {
         this.position = new Vector2(100, 328);
-        this.texture = new Texture("ship64x74.png");
+        this.texture = new Texture(Const.HERO);
         this.rectangle = new Rectangle(position.x, position.y, 64, 74);
-        this.textureHpBar = new Texture("hpBar.png");
+        this.textureHpBar = new Texture(Const.HERO_HP_BAR);
         this.speed = 10.0f;
 
         this.maxHp = 10;
