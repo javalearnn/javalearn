@@ -7,7 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Background {
     class Star {
-        Vector2 position; // coords x coors y
+        // coordinates x and y
+        Vector2 position;
         float speed;
 
         Star() {
@@ -28,7 +29,6 @@ public class Background {
     private Texture texture;
     private Texture textureStar;
     private Star[] stars;
-
 
     Background() {
         texture = new Texture("background.jpg");

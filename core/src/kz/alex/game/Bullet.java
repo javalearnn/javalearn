@@ -15,25 +15,17 @@ class Bullet {
         speed = 14;
         active = false;
         sound = Gdx.audio.newSound(Gdx.files.internal("laserfire01.ogg"));
-        }
+    }
 
 
     public void activate(float x, float y) {
         position.set(x, y);
         active = true;
-        sound.play(0.1f,1,0 );
-        {
-
-        }
-
-
-
-
+        sound.play(0.1f, 1, 0);
     }
 
     public void deactivate() {
         active = false;
-
     }
 
 
@@ -41,9 +33,6 @@ class Bullet {
         position.x += speed;
         if (position.x > 1280) {
             deactivate();
-
-
         }
-        }
-
+    }
 }
