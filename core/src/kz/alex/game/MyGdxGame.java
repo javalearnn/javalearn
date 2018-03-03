@@ -137,8 +137,8 @@ public class MyGdxGame extends ApplicationAdapter {
         }
 
 
-        if (hero.getRectangle().overlaps(loot.getLootHp())) {
-            hero.takeHeal(3);
+        if (hero.getRectangle().overlaps(loot.getLootHp()) && loot.isActive()) {
+            hero.takeHeal(1);
             loot.disable();
         }
 

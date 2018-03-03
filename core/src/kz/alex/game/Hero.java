@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import kz.alex.game.objects.AbstractObject;
 import com.badlogic.gdx.Input.Keys;
 
+import java.text.MessageFormat;
+
 public class Hero extends AbstractObject {
 
     private Texture textureHpBar;
@@ -53,6 +55,12 @@ public class Hero extends AbstractObject {
     }
 
     public void takeHeal(int heal) {
+        //просто лог
+        System.out.println("Current health " + hp);
+        // форматированный лог
+        System.out.println(MessageFormat.format("Current health [{0}]", hp));
+        // форматированный со стрингом
+        System.out.println(String.format("Current health [%d]", hp));
         hp += heal;
         if (hp > maxHp) {
             hp = maxHp;
