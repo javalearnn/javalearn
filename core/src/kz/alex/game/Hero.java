@@ -71,10 +71,10 @@ public class Hero extends AbstractObject {
 
     public void update() {
         if (alive()) {
-            if (isControllPressed(Keys.W, Keys.UP)) position.y += speed;
-            if (isControllPressed(Keys.S, Keys.DOWN)) position.y -= speed;
-            if (isControllPressed(Keys.A, Keys.LEFT)) position.x -= speed;
-            if (isControllPressed(Keys.D, Keys.RIGHT)) position.x += speed;
+            if (isControlPressed(Keys.W, Keys.UP)) position.y += speed;
+            if (isControlPressed(Keys.S, Keys.DOWN)) position.y -= speed;
+            if (isControlPressed(Keys.A, Keys.LEFT)) position.x -= speed;
+            if (isControlPressed(Keys.D, Keys.RIGHT)) position.x += speed;
 
             position.x = position.x < 0 ? 0 : position.x;
             position.x = position.x > 1230 ? 1230 : position.x;
@@ -95,7 +95,7 @@ public class Hero extends AbstractObject {
         }
     }
 
-    private boolean isControllPressed(int... controls) {
+    private boolean isControlPressed(int... controls) {
         for (int control : controls) {
             if (Gdx.input.isKeyPressed(control)) {
                 return true;
