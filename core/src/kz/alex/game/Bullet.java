@@ -8,13 +8,13 @@ class Bullet {
     Vector2 position; // coords x coors y
     private float speed;
     boolean active;
-    Sound sound;
+    private Sound sound;
 
     Bullet() {
         position = new Vector2(0, 0);
         speed = 14;
         active = false;
-        sound = Gdx.audio.newSound(Gdx.files.internal("laserfire01.ogg"));
+        sound = Gdx.audio.newSound(Gdx.files.internal(Const.BULLETSOUD));
     }
 
 

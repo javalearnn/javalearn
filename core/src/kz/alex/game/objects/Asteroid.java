@@ -5,29 +5,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import kz.alex.game.Const;
 
 public class Asteroid extends AbstractObject {
 
     private int hp;
     private int Maxhp;
-    private Rectangle hitbox;
-    private float size;
-    Loot loot;
-
     public int getHp() {
         return hp;
     }
-
-    public Rectangle getHitbox() {
-        return hitbox;
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
     public Asteroid() {
-        this.texture = new Texture("Asteroid64x57.png");
+        this.texture = new Texture(Const.ASTEROID);
         this.position = new Vector2(0, 0);
         this.active = false;
 
-        hitbox = new Rectangle(position.x, position.y, 64, 57);
+        rectangle = new Rectangle(position.x, position.y, 64, 57);
     }
 
     public void setup() {
@@ -36,13 +32,13 @@ public class Asteroid extends AbstractObject {
         speed = MathUtils.random(3, 10);
         Maxhp = 3;
         hp = Maxhp;
-        hitbox.setSize(64, 57);
+        rectangle.setSize(64, 57);
         active = true;
-    }
+        }
 
     public void render(SpriteBatch batch) {
         batch.draw(texture, position.x, position.y);
-        batch.draw(texture, position.x, position.y);
+
     }
 
     public void takeDamage(int dmg) {
@@ -58,19 +54,8 @@ public class Asteroid extends AbstractObject {
             disable();
         }
 
-        hitbox.x = position.x;
-        hitbox.y = position.y;
+        rectangle.x = position.x;
+        rectangle.y = position.y;
+
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

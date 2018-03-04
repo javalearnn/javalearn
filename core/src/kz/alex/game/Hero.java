@@ -11,39 +11,40 @@ import com.badlogic.gdx.Input.Keys;
 
 import java.text.MessageFormat;
 
+
+
 public class Hero extends AbstractObject {
 
-    private Texture textureHpBar;
     private int fireCounter;
     private int fireRate;
-    private Rectangle hitBox;
     private Rectangle rectangle;
     private int hp, maxHp;
     private int score;
-    private int heal;
+    private int coinScore;
 
     public Rectangle getRectangle() {
         return rectangle;
     }
-
     public int getScore() {
         return score;
     }
-
     public void addScore(int n) {
         score += n;
     }
-
     public int getHp() {
         return hp;
     }
-
+    public int getCoinScore() {
+        return coinScore;
+    }
+    public void addCoinScore(int i) {
+        this.coinScore += i;
+    }
     public Hero() {
         this.position = new Vector2(100, 328);
         this.texture = new Texture(Const.HERO);
         this.rectangle = new Rectangle(position.x, position.y, 64, 74);
-        this.textureHpBar = new Texture(Const.HERO_HP_BAR);
-        this.speed = 10.0f;
+        this.speed = 5.0f;
 
         this.maxHp = 10;
         this.hp = maxHp;
@@ -55,11 +56,11 @@ public class Hero extends AbstractObject {
     }
 
     public void takeHeal(int heal) {
-        //просто лог
+
         System.out.println("Current health " + hp);
-        // форматированный лог
+                // форматированный лог
         System.out.println(MessageFormat.format("Current health [{0}]", hp));
-        // форматированный со стрингом
+                // форматированный со стрингом
         System.out.println(String.format("Current health [%d]", hp));
         hp += heal;
         if (hp > maxHp) {
@@ -71,11 +72,7 @@ public class Hero extends AbstractObject {
         batch.draw(texture, position.x, position.y);
     }
 
-    public void renderHUD(SpriteBatch batch, BitmapFont font, int x, int y) {
-        font.draw(batch, "Score: " + score, x + 20, y);
-        batch.draw(textureHpBar, x, y - 35, 0, 0, 200, 20);
-        batch.draw(textureHpBar, x, y - 35, 0, 20, 200 * hp / 10, 20);
-    }
+
 
     public void update() {
         if (alive()) {
@@ -86,8 +83,8 @@ public class Hero extends AbstractObject {
 
             position.x = position.x < 0 ? 0 : position.x;
             position.x = position.x > 1230 ? 1230 : position.x;
-            position.y = position.y < 0 ? 720 : position.y;
-            position.y = position.y > 720 ? 0 : position.y;
+            position.y = position.y < 0 ? 0 : position.y;
+            position.y = position.y > 720-74 ?720-74  : position.y;
 
             if (Gdx.input.isKeyPressed(Keys.SPACE)) {
                 fireCounter++;

@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class Background {
+
+
     class Star {
         // coordinates x and y
         Vector2 position;
@@ -29,10 +31,16 @@ public class Background {
     private Texture texture;
     private Texture textureStar;
     private Star[] stars;
+    public MyGdxGame myGame;
+    public SpriteBatch batch;
 
-    Background() {
-        texture = new Texture("background.jpg");
-        textureStar = new Texture("star12.tga");
+   public Background(MyGdxGame myGame, SpriteBatch batch) {
+       this.myGame = myGame;
+       this.batch = batch;
+
+
+        texture = new Texture(Const.BACKGROUND);
+        textureStar = new Texture(Const.STAR);
         stars = new Star[240];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star();
